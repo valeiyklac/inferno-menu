@@ -13,10 +13,19 @@
     --ink:#ECE3D6; --muted:#9C8E7C; --ember:#E8631F; --blood:#C01E10;
   }
   *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
   body{margin:0; background:var(--bg); color:var(--ink);
     font-family:'Manrope',system-ui,sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased;}
   .wrap{max-width:700px; margin:0 auto; padding:0 22px 64px;}
+  .catnav{position:sticky; top:0; z-index:10; margin:0 -22px 8px; padding:11px 22px;
+    background:rgba(20,17,15,.92); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line); display:flex; gap:18px; overflow-x:auto; white-space:nowrap;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.12em; font-size:.72rem;}
+  .catnav::-webkit-scrollbar{display:none;}
+  .catnav a{color:var(--muted); text-decoration:none; flex:0 0 auto; padding:3px 0;
+    border-bottom:1px solid transparent; transition:color .2s, border-color .2s;}
+  .catnav a:hover, .catnav a:active{color:var(--ember); border-color:var(--ember);}
   .hero{text-align:center; padding:58px 0 26px;}
   .wordmark{font-family:'Pirata One',serif; font-weight:400;
     font-size:clamp(3rem,15vw,4.8rem); line-height:.9; margin:0; color:var(--ink);
@@ -27,7 +36,7 @@
   .wick{width:64px; height:2px; margin:26px auto 0; border-radius:2px;
     background:linear-gradient(90deg, transparent, var(--ember), transparent);
     box-shadow:0 0 12px rgba(232,99,31,.5);}
-  .section{margin-top:48px;}
+  .section{margin-top:48px; scroll-margin-top:64px;}
   .eyebrow{font-family:'Oswald',sans-serif; font-weight:500; text-transform:uppercase;
     letter-spacing:.2em; font-size:.7rem; color:var(--ember);}
   .section-title{font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase;
@@ -71,7 +80,21 @@
     <div class="wick" aria-hidden="true"></div>
   </header>
 
-<section class="section">
+<nav class="catnav">
+  <a href="#sec-1">Сети під спорт</a>
+  <a href="#sec-2">Мексика</a>
+  <a href="#sec-3">Снеки під кальян</a>
+  <a href="#sec-4">Бургери і сендвічі</a>
+  <a href="#sec-5">Гаряче</a>
+  <a href="#sec-6">Паста</a>
+  <a href="#sec-7">Салати</a>
+  <a href="#sec-8">Гарніри і соуси</a>
+  <a href="#sec-9">Десерти</a>
+  <a href="#sec-10">Напої</a>
+  <a href="#sec-11">Коктейлі</a>
+</nav>
+
+<section class="section" id="sec-1">
   <div class="eyebrow">На компанію</div>
   <h2 class="section-title">Сети під спорт</h2>
   <p class="section-sub">Великий стіл, довгий матч — береться одне, вистачає всім.</p>
@@ -93,7 +116,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-2">
   <div class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:-2px;margin-right:7px"><circle cx="12" cy="12" r="10" fill="#ECE3D6"/><path d="M12 6.5l3.2 2.3-1.2 3.8h-4l-1.2-3.8z" fill="#1C1714"/><path d="M12 6.5V3M15.2 8.8l3.1-1M14 12.6l2 2.8M10 12.6l-2 2.8M8.8 8.8l-3.1-1" stroke="#1C1714" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>під ЧС-2026</div>
   <h2 class="section-title">Мексика</h2>
   <p class="section-sub">Мексика приймає Чемпіонат світу — зібрали стіл під трансляції.</p>
@@ -127,7 +150,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-3">
   <div class="eyebrow">До пива</div>
   <h2 class="section-title">Снеки під кальян</h2>
   <p class="section-sub">Те, що хочеться руками між затяжками.</p>
@@ -165,7 +188,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-4">
   <div class="eyebrow">У руку</div>
   <h2 class="section-title">Бургери і сендвічі</h2>
   <p class="section-sub">Гаряче, під яке не потрібні прибори.</p>
@@ -191,7 +214,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-5">
   <div class="eyebrow">Ситніше</div>
   <h2 class="section-title">Гаряче</h2>
   <p class="section-sub">Коли прийшли не перекусити, а поїсти.</p>
@@ -213,7 +236,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-6">
   <div class="eyebrow">З кухні</div>
   <h2 class="section-title">Паста</h2>
   <div class="item">
@@ -226,7 +249,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-7">
   <div class="eyebrow">Свіже</div>
   <h2 class="section-title">Салати</h2>
   <div class="item">
@@ -243,7 +266,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-8">
   <div class="eyebrow">Додатки</div>
   <h2 class="section-title">Гарніри і соуси</h2>
   <div class="item">
@@ -300,7 +323,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-9">
   <div class="eyebrow">До чаю і кальяну</div>
   <h2 class="section-title">Десерти</h2>
   <div class="featured">
@@ -317,7 +340,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="sec-10">
   <div class="eyebrow">Бар</div>
   <h2 class="section-title">Напої</h2>
   <p class="section-sub">Витяг — повну карту зберемо окремо.</p>
@@ -348,6 +371,52 @@
   <div class="item">
     <div class="item-head"><span class="item-name">Кава</span><span class="price">69&#8202;₴</span></div>
     <div class="item-desc">Еспресо, американо або капучино.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-11">
+  <div class="eyebrow">Бар · класика</div>
+  <h2 class="section-title">Коктейлі</h2>
+  <p class="section-sub">10 класичних коктейлів на будь-який смак.</p>
+  <div class="featured">
+    <div class="item-head"><span class="item-name">Негроні <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">220&#8202;₴</span></div>
+    <div class="item-desc">Джин, Кампарі і червоний вермут — гірко-цитрусова класика.</div>
+  </div>
+  <div class="featured">
+    <div class="item-head"><span class="item-name">Олд Фешн <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">240&#8202;₴</span></div>
+    <div class="item-desc">Бурбон, цукор і бітер — вічна класика на льоду.</div>
+  </div>
+  <div class="featured">
+    <div class="item-head"><span class="item-name">Віскі Сауер <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">230&#8202;₴</span></div>
+    <div class="item-desc">Віскі, лимон, цукор і білок — оксамитова піна.</div>
+  </div>
+  <div class="featured">
+    <div class="item-head"><span class="item-name">Еспресо Мартіні <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">250&#8202;₴</span></div>
+    <div class="item-desc">Горілка, кавовий лікер і еспресо — бадьорить.</div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="item-name">Джин Гарден</span><span class="price">230&#8202;₴</span></div>
+    <div class="item-desc">Джин, огірок, лайм і м'ята — свіжий садовий.</div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="item-name">Апероль Шприц</span><span class="price">210&#8202;₴</span></div>
+    <div class="item-desc">Апероль, просекко і содова — літня класика.</div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="item-name">Мохіто</span><span class="price">210&#8202;₴</span></div>
+    <div class="item-desc">Ром, лайм, м'ята і содова — освіжає.</div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="item-name">Маргарита</span><span class="price">230&#8202;₴</span></div>
+    <div class="item-desc">Текіла, апельсиновий лікер і лайм, сіль на ободку.</div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="item-name">Космополітан</span><span class="price">220&#8202;₴</span></div>
+    <div class="item-desc">Горілка, лікер, журавлина і лайм.</div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="item-name">Дайкірі</span><span class="price">200&#8202;₴</span></div>
+    <div class="item-desc">Ром, лайм і цукор — баланс класики.</div>
   </div>
 </section>
 
