@@ -8,65 +8,70 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Oswald:wght@300;400;500;600&family=Pirata+One&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#14110F; --surface:#1C1714; --line:#2C2420;
-    --ink:#ECE3D6; --muted:#9C8E7C; --ember:#E8631F; --blood:#C01E10;
-  }
+  :root{--bg:#14110F; --surface:#1C1714; --line:#2C2420; --ink:#ECE3D6; --muted:#9C8E7C; --ember:#E8631F; --blood:#C01E10;}
   *{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
   body{margin:0; background:var(--bg); color:var(--ink);
     font-family:'Manrope',system-ui,sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased;}
   .wrap{max-width:700px; margin:0 auto; padding:0 22px 64px;}
-  .catnav{position:sticky; top:0; z-index:10; margin:0 -22px 8px; padding:11px 22px;
-    background:rgba(20,17,15,.92); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line); display:flex; gap:18px; overflow-x:auto; white-space:nowrap;
-    -webkit-overflow-scrolling:touch; scrollbar-width:none;
-    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.12em; font-size:.72rem;}
-  .catnav::-webkit-scrollbar{display:none;}
-  .catnav a{color:var(--muted); text-decoration:none; flex:0 0 auto; padding:3px 0;
-    border-bottom:1px solid transparent; transition:color .2s, border-color .2s;}
-  .catnav a:hover, .catnav a:active{color:var(--ember); border-color:var(--ember);}
-  .hero{text-align:center; padding:58px 0 26px;}
-  .wordmark{font-family:'Pirata One',serif; font-weight:400;
-    font-size:clamp(3rem,15vw,4.8rem); line-height:.9; margin:0; color:var(--ink);
-    text-shadow:0 0 26px rgba(232,99,31,.34), 0 0 5px rgba(232,99,31,.22);}
-  .tag{margin-top:14px; font-family:'Oswald',sans-serif; font-weight:400;
-    text-transform:uppercase; letter-spacing:.42em; font-size:.74rem; color:var(--ember); padding-left:.42em;}
+  .hero{text-align:center; padding:58px 0 22px;}
+  .wordmark{font-family:'Pirata One',serif; font-weight:400; font-size:clamp(3rem,15vw,4.8rem);
+    line-height:.9; margin:0; color:var(--ink); text-shadow:0 0 26px rgba(232,99,31,.34), 0 0 5px rgba(232,99,31,.22);}
+  .tag{margin-top:14px; font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.42em;
+    font-size:.74rem; color:var(--ember); padding-left:.42em;}
   .lede{margin:16px auto 0; max-width:34ch; color:var(--muted); font-size:.94rem;}
-  .wick{width:64px; height:2px; margin:26px auto 0; border-radius:2px;
-    background:linear-gradient(90deg, transparent, var(--ember), transparent);
-    box-shadow:0 0 12px rgba(232,99,31,.5);}
-  .section{margin-top:48px; scroll-margin-top:64px;}
-  .eyebrow{font-family:'Oswald',sans-serif; font-weight:500; text-transform:uppercase;
-    letter-spacing:.2em; font-size:.7rem; color:var(--ember);}
-  .section-title{font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase;
-    letter-spacing:.03em; font-size:clamp(1.45rem,6vw,1.85rem); line-height:1.05; margin:5px 0 3px;}
+  .wick{width:64px; height:2px; margin:24px auto 0; border-radius:2px;
+    background:linear-gradient(90deg, transparent, var(--ember), transparent); box-shadow:0 0 12px rgba(232,99,31,.5);}
+
+  /* collapsible top groups */
+  .group{border-top:1px solid var(--line);}
+  .group:last-of-type{border-bottom:1px solid var(--line);}
+  .group>summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between;
+    gap:14px; padding:24px 2px; scroll-margin-top:10px; -webkit-tap-highlight-color:transparent;}
+  .group>summary::-webkit-details-marker{display:none;}
+  .group>summary::marker{content:"";}
+  .gname{font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+    font-size:clamp(1.55rem,7vw,2.1rem); line-height:1; color:var(--ink); transition:color .2s;}
+  .group[open]>summary .gname{color:var(--ember);}
+  .gright{display:inline-flex; align-items:center; gap:12px; color:var(--muted);}
+  .gcount{font-family:'Oswald',sans-serif; font-size:.82rem; letter-spacing:.08em;}
+  .chev{flex:0 0 auto; color:var(--muted); transition:transform .25s ease, color .2s;}
+  .group[open]>summary .chev{transform:rotate(180deg); color:var(--ember);}
+  .group-body{padding:0 0 26px;}
+
+  /* sub-categories inside a group */
+  .subsec{margin-top:30px;}
+  .group-body>.subsec:first-child{margin-top:6px;}
+  .eyebrow{font-family:'Oswald',sans-serif; font-weight:500; text-transform:uppercase; letter-spacing:.2em;
+    font-size:.7rem; color:var(--ember);}
+  .subsec-title{font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.03em;
+    font-size:clamp(1.25rem,5.2vw,1.55rem); line-height:1.05; margin:5px 0 3px;}
   .section-sub{color:var(--muted); font-size:.85rem; margin:0 0 6px;}
+
+  /* items */
   .item{padding:13px 0; border-bottom:1px solid var(--line);}
   .item:last-child{border-bottom:none;}
   .item-head{display:flex; justify-content:space-between; align-items:baseline; gap:14px;}
-  .item-name{font-weight:600; font-size:1.03rem; letter-spacing:.005em;
-    display:inline-flex; align-items:center; gap:7px; flex:1 1 auto;}
-  .price{font-family:'Oswald',sans-serif; font-weight:500; font-size:1rem; color:var(--ember);
-    white-space:nowrap; letter-spacing:.02em;}
+  .item-name{font-weight:600; font-size:1.03rem; letter-spacing:.005em; display:inline-flex; align-items:center; gap:7px; flex:1 1 auto;}
+  .price{font-family:'Oswald',sans-serif; font-weight:500; font-size:1rem; color:var(--ember); white-space:nowrap; letter-spacing:.02em;}
   .item-desc{color:var(--muted); font-size:.9rem; margin-top:3px;}
   .flame{flex:0 0 auto; transform:translateY(-1px);}
-  .featured{background:var(--surface); border:1px solid var(--line); border-radius:12px;
-    padding:16px 18px; margin:4px 0 14px; position:relative; overflow:hidden;}
+  .featured{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+    margin:10px 0 14px; position:relative; overflow:hidden;}
   .featured::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
     background:var(--ember); box-shadow:0 0 14px rgba(232,99,31,.55);}
   .featured .item-name{font-size:1.12rem;}
   .featured .price{font-size:1.08rem;}
   .featured .item-desc{margin-top:5px;}
-  .foot{margin-top:54px; padding-top:22px; border-top:1px solid var(--line); text-align:center;}
+
+  .foot{margin-top:46px; padding-top:22px; border-top:1px solid var(--line); text-align:center;}
   .foot .note{color:var(--muted); font-size:.86rem;}
-  .foot .meta{margin-top:14px; font-family:'Oswald',sans-serif; font-weight:400;
-    text-transform:uppercase; letter-spacing:.22em; font-size:.72rem; color:var(--ink);}
+  .foot .meta{margin-top:14px; font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.22em;
+    font-size:.72rem; color:var(--ink);}
   .foot .meta span{color:var(--ember);}
   @media (prefers-reduced-motion: no-preference){
     .wordmark{animation:flick 5s ease-in-out infinite;}
-    @keyframes flick{
-      0%,100%{text-shadow:0 0 26px rgba(232,99,31,.30), 0 0 5px rgba(232,99,31,.20);}
+    @keyframes flick{0%,100%{text-shadow:0 0 26px rgba(232,99,31,.30), 0 0 5px rgba(232,99,31,.20);}
       45%{text-shadow:0 0 34px rgba(232,99,31,.48), 0 0 7px rgba(232,99,31,.30);}
       70%{text-shadow:0 0 22px rgba(232,99,31,.26), 0 0 5px rgba(232,99,31,.18);}}}
 </style>
@@ -76,354 +81,364 @@
   <header class="hero">
     <h1 class="wordmark">Inferno</h1>
     <div class="tag">lounge · bar · hookah</div>
-    <p class="lede">Закуски, кальян і спорт на великому екрані. Завітай відпочити — ми поруч.</p>
+    <p class="lede">Закуски, кальян і спорт на великому екрані. Обери розділ — і меню розкриється.</p>
     <div class="wick" aria-hidden="true"></div>
   </header>
 
-<nav class="catnav">
-  <a href="#sec-1">Сети під спорт</a>
-  <a href="#sec-2">Мексика</a>
-  <a href="#sec-3">Снеки під кальян</a>
-  <a href="#sec-4">Бургери і сендвічі</a>
-  <a href="#sec-5">Гаряче</a>
-  <a href="#sec-6">Паста</a>
-  <a href="#sec-7">Салати</a>
-  <a href="#sec-8">Гарніри і соуси</a>
-  <a href="#sec-9">Десерти</a>
-  <a href="#sec-10">Напої</a>
-  <a href="#sec-11">Коктейлі</a>
-</nav>
+<details class="group" open>
+  <summary><span class="gname">Кухня</span><span class="gright"><span class="gcount">46</span><svg class="chev" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+  <div class="group-body">
+  <div class="subsec">
+    <div class="eyebrow">На компанію</div>
+    <h3 class="subsec-title">Сети під спорт</h3>
+    <p class="section-sub">Великий стіл, довгий матч — береться одне, вистачає всім.</p>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Сет «Inferno» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">749&#8202;₴</span></div>
+      <div class="item-desc">Крильця, стрипси, сирні палички, цибулеві кільця, грінки і три соуси.</div>
+    </div>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">М'ясне плато «Пекло» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">689&#8202;₴</span></div>
+      <div class="item-desc">Крильця, реберця BBQ, курячий шашличок і ковбаски-гриль.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Лоадед-фрі</span><span class="price">189&#8202;₴</span></div>
+      <div class="item-desc">Фрі під розплавленим сиром, хрустким беконом і соусом.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Сирна тарілка</span><span class="price">269&#8202;₴</span></div>
+      <div class="item-desc">Асорті сирів, горішки і мед.</div>
+    </div>
+  </div>
+  <div class="subsec">
+    <div class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:-2px;margin-right:7px"><circle cx="12" cy="12" r="10" fill="#ECE3D6"/><path d="M12 6.5l3.2 2.3-1.2 3.8h-4l-1.2-3.8z" fill="#1C1714"/><path d="M12 6.5V3M15.2 8.8l3.1-1M14 12.6l2 2.8M10 12.6l-2 2.8M8.8 8.8l-3.1-1" stroke="#1C1714" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>під ЧС-2026</div>
+    <h3 class="subsec-title">Мексика</h3>
+    <p class="section-sub">Мексика приймає Чемпіонат світу — зібрали стіл під трансляції.</p>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Начос «Пекельне полум'я» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">199&#8202;₴</span></div>
+      <div class="item-desc">Чипси тортілья під сирним соусом, халапеньйо і сальса.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Чилі кон карне</span><span class="price">219&#8202;₴</span></div>
+      <div class="item-desc">Гостре рагу з яловичини з квасолею, під начос.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Халапеньйо поппери</span><span class="price">169&#8202;₴</span></div>
+      <div class="item-desc">Перчики халапеньйо з сиром у хрусткому клярі.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Міні-тако</span><span class="price">189&#8202;₴</span></div>
+      <div class="item-desc">Три тортільї з куркою або яловичиною, сиром і сальсою.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Бурріто</span><span class="price">209&#8202;₴</span></div>
+      <div class="item-desc">Велика тортілья з м'ясом, сиром, овочами і соусом.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Кесаділья куряча</span><span class="price">199&#8202;₴</span></div>
+      <div class="item-desc">Тортілья, курка, розплавлений сир, сальса.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Кесаділья м'ясна</span><span class="price">219&#8202;₴</span></div>
+      <div class="item-desc">Яловичина, сир, халапеньйо.</div>
+    </div>
+  </div>
+  <div class="subsec">
+    <div class="eyebrow">До пива</div>
+    <h3 class="subsec-title">Снеки під кальян</h3>
+    <p class="section-sub">Те, що хочеться руками між затяжками.</p>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Пекельні крильця <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">219&#8202;₴</span></div>
+      <div class="item-desc">Гострі, у фірмовому соусі. Не для слабких.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Крильця BBQ</span><span class="price">209&#8202;₴</span></div>
+      <div class="item-desc">Медово-копчені й липкі.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Курячі стрипси</span><span class="price">179&#8202;₴</span></div>
+      <div class="item-desc">У хрусткій паніровці, соус на вибір.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Сирні палички</span><span class="price">159&#8202;₴</span></div>
+      <div class="item-desc">Моцарела у клярі, кисло-солодкий соус.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Цибулеві кільця</span><span class="price">139&#8202;₴</span></div>
+      <div class="item-desc">Золотисті, з ранч-соусом.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Часникові грінки</span><span class="price">119&#8202;₴</span></div>
+      <div class="item-desc">Із сирним соусом.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Картопля по-селянськи</span><span class="price">119&#8202;₴</span></div>
+      <div class="item-desc">З паприкою і часником.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Фрі</span><span class="price">99&#8202;₴</span></div>
+      <div class="item-desc">Класика, соус на вибір.</div>
+    </div>
+  </div>
+  <div class="subsec">
+    <div class="eyebrow">У руку</div>
+    <h3 class="subsec-title">Бургери і сендвічі</h3>
+    <p class="section-sub">Гаряче, під яке не потрібні прибори.</p>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Бургер «Inferno» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">259&#8202;₴</span></div>
+      <div class="item-desc">Подвійна яловичина, чедер, бекон, гострий соус.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Чізбургер</span><span class="price">219&#8202;₴</span></div>
+      <div class="item-desc">Яловичина, плавлений чедер, овочі.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Чікен-бургер</span><span class="price">209&#8202;₴</span></div>
+      <div class="item-desc">Куряче філе в паніровці, соус ранч.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Рол у лаваші</span><span class="price">169&#8202;₴</span></div>
+      <div class="item-desc">Курка або яловичина, овочі, соус.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Клаб-сендвіч</span><span class="price">189&#8202;₴</span></div>
+      <div class="item-desc">Курка, бекон, овочі, тости.</div>
+    </div>
+  </div>
+  <div class="subsec">
+    <div class="eyebrow">Ситніше</div>
+    <h3 class="subsec-title">Гаряче</h3>
+    <p class="section-sub">Коли прийшли не перекусити, а поїсти.</p>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Реберця BBQ <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">329&#8202;₴</span></div>
+      <div class="item-desc">Томлені, у липкій глазурі.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Курячий шашличок</span><span class="price">239&#8202;₴</span></div>
+      <div class="item-desc">З овочами-гриль і соусом.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Куряче філе-гриль</span><span class="price">219&#8202;₴</span></div>
+      <div class="item-desc">З гарніром на вибір.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Ковбаски-гриль</span><span class="price">249&#8202;₴</span></div>
+      <div class="item-desc">Асорті, з картоплею і гірчицею.</div>
+    </div>
+  </div>
+  <div class="subsec">
+    <div class="eyebrow">З кухні</div>
+    <h3 class="subsec-title">Паста</h3>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Паста болоньєзе</span><span class="price">219&#8202;₴</span></div>
+      <div class="item-desc">Спагеті, м'ясне рагу в томаті, пармезан.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Паста карбонара</span><span class="price">229&#8202;₴</span></div>
+      <div class="item-desc">Спагеті, бекон, вершковий соус, пармезан.</div>
+    </div>
+  </div>
+  <div class="subsec">
+    <div class="eyebrow">Свіже</div>
+    <h3 class="subsec-title">Салати</h3>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Цезар з куркою</span><span class="price">199&#8202;₴</span></div>
+      <div class="item-desc">Класика, як треба.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Теплий салат з яловичиною</span><span class="price">229&#8202;₴</span></div>
+      <div class="item-desc">Мікс салату, яловичина, овочі.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Овочевий із сиром</span><span class="price">159&#8202;₴</span></div>
+      <div class="item-desc">Свіжі овочі і заправка.</div>
+    </div>
+  </div>
+  <div class="subsec">
+    <div class="eyebrow">Додатки</div>
+    <h3 class="subsec-title">Гарніри і соуси</h3>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Гарнір: Фрі</span><span class="price">89&#8202;₴</span></div>
+      <div class="item-desc">Хрустка картопля фрі.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Гарнір: Картопля по-селянськи</span><span class="price">99&#8202;₴</span></div>
+      <div class="item-desc">Часточки з паприкою і часником.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Гарнір: Овочі гриль</span><span class="price">119&#8202;₴</span></div>
+      <div class="item-desc">Асорті овочів на грилі.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Соус сирний</span><span class="price">35&#8202;₴</span></div>
+      <div class="item-desc">Теплий вершково-сирний соус.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Соус BBQ</span><span class="price">35&#8202;₴</span></div>
+      <div class="item-desc">Димно-солодкий соус барбекю.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Соус часниковий</span><span class="price">35&#8202;₴</span></div>
+      <div class="item-desc">Вершковий соус із часником.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Соус гострий</span><span class="price">35&#8202;₴</span></div>
+      <div class="item-desc">Фірмовий пекучий соус.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Соус ранч</span><span class="price">35&#8202;₴</span></div>
+      <div class="item-desc">Класичний ранч на травах.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Соус кисло-солодкий</span><span class="price">35&#8202;₴</span></div>
+      <div class="item-desc">Кисло-солодкий соус.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Соус сальса</span><span class="price">39&#8202;₴</span></div>
+      <div class="item-desc">Томатна сальса з перцем.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Топінг: Сир</span><span class="price">49&#8202;₴</span></div>
+      <div class="item-desc">Додатковий розплавлений сир.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Топінг: Бекон</span><span class="price">59&#8202;₴</span></div>
+      <div class="item-desc">Хрусткий бекон як доповнення.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Топінг: Халапеньйо</span><span class="price">39&#8202;₴</span></div>
+      <div class="item-desc">Маринований перець халапеньйо.</div>
+    </div>
+  </div>
+  </div>
+</details>
 
-<section class="section" id="sec-1">
-  <div class="eyebrow">На компанію</div>
-  <h2 class="section-title">Сети під спорт</h2>
-  <p class="section-sub">Великий стіл, довгий матч — береться одне, вистачає всім.</p>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Сет «Inferno» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">749&#8202;₴</span></div>
-    <div class="item-desc">Крильця, стрипси, сирні палички, цибулеві кільця, грінки і три соуси.</div>
+<details class="group">
+  <summary><span class="gname">Бар</span><span class="gright"><span class="gcount">10</span><svg class="chev" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+  <div class="group-body">
+  <div class="subsec">
+    <div class="eyebrow">Бар · класика</div>
+    <h3 class="subsec-title">Коктейлі</h3>
+    <p class="section-sub">10 класичних коктейлів на будь-який смак.</p>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Негроні <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">220&#8202;₴</span></div>
+      <div class="item-desc">Джин, Кампарі і червоний вермут — гірко-цитрусова класика.</div>
+    </div>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Олд Фешн <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">240&#8202;₴</span></div>
+      <div class="item-desc">Бурбон, цукор і бітер — вічна класика на льоду.</div>
+    </div>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Віскі Сауер <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">230&#8202;₴</span></div>
+      <div class="item-desc">Віскі, лимон, цукор і білок — оксамитова піна.</div>
+    </div>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Еспресо Мартіні <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">250&#8202;₴</span></div>
+      <div class="item-desc">Горілка, кавовий лікер і еспресо — бадьорить.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Джин Гарден</span><span class="price">230&#8202;₴</span></div>
+      <div class="item-desc">Джин, огірок, лайм і м'ята — свіжий садовий.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Апероль Шприц</span><span class="price">210&#8202;₴</span></div>
+      <div class="item-desc">Апероль, просекко і содова — літня класика.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Мохіто</span><span class="price">210&#8202;₴</span></div>
+      <div class="item-desc">Ром, лайм, м'ята і содова — освіжає.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Маргарита</span><span class="price">230&#8202;₴</span></div>
+      <div class="item-desc">Текіла, апельсиновий лікер і лайм, сіль на ободку.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Космополітан</span><span class="price">220&#8202;₴</span></div>
+      <div class="item-desc">Горілка, лікер, журавлина і лайм.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Дайкірі</span><span class="price">200&#8202;₴</span></div>
+      <div class="item-desc">Ром, лайм і цукор — баланс класики.</div>
+    </div>
   </div>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">М'ясне плато «Пекло» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">689&#8202;₴</span></div>
-    <div class="item-desc">Крильця, реберця BBQ, курячий шашличок і ковбаски-гриль.</div>
   </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Лоадед-фрі</span><span class="price">189&#8202;₴</span></div>
-    <div class="item-desc">Фрі під розплавленим сиром, хрустким беконом і соусом.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Сирна тарілка</span><span class="price">269&#8202;₴</span></div>
-    <div class="item-desc">Асорті сирів, горішки і мед.</div>
-  </div>
-</section>
+</details>
 
-<section class="section" id="sec-2">
-  <div class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:-2px;margin-right:7px"><circle cx="12" cy="12" r="10" fill="#ECE3D6"/><path d="M12 6.5l3.2 2.3-1.2 3.8h-4l-1.2-3.8z" fill="#1C1714"/><path d="M12 6.5V3M15.2 8.8l3.1-1M14 12.6l2 2.8M10 12.6l-2 2.8M8.8 8.8l-3.1-1" stroke="#1C1714" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>під ЧС-2026</div>
-  <h2 class="section-title">Мексика</h2>
-  <p class="section-sub">Мексика приймає Чемпіонат світу — зібрали стіл під трансляції.</p>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Начос «Пекельне полум'я» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">199&#8202;₴</span></div>
-    <div class="item-desc">Чипси тортілья під сирним соусом, халапеньйо і сальса.</div>
+<details class="group">
+  <summary><span class="gname">Десерти</span><span class="gright"><span class="gcount">3</span><svg class="chev" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+  <div class="group-body">
+  <div class="subsec">
+    <div class="eyebrow">До чаю і кальяну</div>
+    <h3 class="subsec-title">Десерти</h3>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Фруктова тарілка <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">259&#8202;₴</span></div>
+      <div class="item-desc">Асорті свіжих фруктів на компанію.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Чізкейк</span><span class="price">149&#8202;₴</span></div>
+      <div class="item-desc">Класичний ніжний чізкейк.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Морозиво</span><span class="price">99&#8202;₴</span></div>
+      <div class="item-desc">Кульки пломбіру з топінгом.</div>
+    </div>
   </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Чилі кон карне</span><span class="price">219&#8202;₴</span></div>
-    <div class="item-desc">Гостре рагу з яловичини з квасолею, під начос.</div>
   </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Халапеньйо поппери</span><span class="price">169&#8202;₴</span></div>
-    <div class="item-desc">Перчики халапеньйо з сиром у хрусткому клярі.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Міні-тако</span><span class="price">189&#8202;₴</span></div>
-    <div class="item-desc">Три тортільї з куркою або яловичиною, сиром і сальсою.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Бурріто</span><span class="price">209&#8202;₴</span></div>
-    <div class="item-desc">Велика тортілья з м'ясом, сиром, овочами і соусом.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Кесаділья куряча</span><span class="price">199&#8202;₴</span></div>
-    <div class="item-desc">Тортілья, курка, розплавлений сир, сальса.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Кесаділья м'ясна</span><span class="price">219&#8202;₴</span></div>
-    <div class="item-desc">Яловичина, сир, халапеньйо.</div>
-  </div>
-</section>
+</details>
 
-<section class="section" id="sec-3">
-  <div class="eyebrow">До пива</div>
-  <h2 class="section-title">Снеки під кальян</h2>
-  <p class="section-sub">Те, що хочеться руками між затяжками.</p>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Пекельні крильця <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">219&#8202;₴</span></div>
-    <div class="item-desc">Гострі, у фірмовому соусі. Не для слабких.</div>
+<details class="group">
+  <summary><span class="gname">Напої</span><span class="gright"><span class="gcount">7</span><svg class="chev" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+  <div class="group-body">
+  <div class="subsec">
+    <div class="eyebrow">Бар</div>
+    <h3 class="subsec-title">Напої</h3>
+    <p class="section-sub">Витяг — повну карту зберемо окремо.</p>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Домашній лимонад (глечик) <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">199&#8202;₴</span></div>
+      <div class="item-desc">Великий глечик домашнього лимонаду на компанію.</div>
+    </div>
+    <div class="featured">
+      <div class="item-head"><span class="item-name">Коктейль авторський «Inferno» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">219&#8202;₴</span></div>
+      <div class="item-desc">Фірмові авторські коктейлі «Inferno».</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Домашній лимонад (келих)</span><span class="price">79&#8202;₴</span></div>
+      <div class="item-desc">Порційний келих домашнього лимонаду.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Чайник фруктового чаю</span><span class="price">169&#8202;₴</span></div>
+      <div class="item-desc">Великий чайник фруктового чаю на компанію.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Коктейль класичний</span><span class="price">189&#8202;₴</span></div>
+      <div class="item-desc">Класичні коктейлі бару.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Пиво</span><span class="price">89&#8202;₴</span></div>
+      <div class="item-desc">Розливне або пляшкове пиво.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">Кава</span><span class="price">69&#8202;₴</span></div>
+      <div class="item-desc">Еспресо, американо або капучино.</div>
+    </div>
   </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Крильця BBQ</span><span class="price">209&#8202;₴</span></div>
-    <div class="item-desc">Медово-копчені й липкі.</div>
   </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Курячі стрипси</span><span class="price">179&#8202;₴</span></div>
-    <div class="item-desc">У хрусткій паніровці, соус на вибір.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Сирні палички</span><span class="price">159&#8202;₴</span></div>
-    <div class="item-desc">Моцарела у клярі, кисло-солодкий соус.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Цибулеві кільця</span><span class="price">139&#8202;₴</span></div>
-    <div class="item-desc">Золотисті, з ранч-соусом.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Часникові грінки</span><span class="price">119&#8202;₴</span></div>
-    <div class="item-desc">Із сирним соусом.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Картопля по-селянськи</span><span class="price">119&#8202;₴</span></div>
-    <div class="item-desc">З паприкою і часником.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Фрі</span><span class="price">99&#8202;₴</span></div>
-    <div class="item-desc">Класика, соус на вибір.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-4">
-  <div class="eyebrow">У руку</div>
-  <h2 class="section-title">Бургери і сендвічі</h2>
-  <p class="section-sub">Гаряче, під яке не потрібні прибори.</p>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Бургер «Inferno» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">259&#8202;₴</span></div>
-    <div class="item-desc">Подвійна яловичина, чедер, бекон, гострий соус.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Чізбургер</span><span class="price">219&#8202;₴</span></div>
-    <div class="item-desc">Яловичина, плавлений чедер, овочі.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Чікен-бургер</span><span class="price">209&#8202;₴</span></div>
-    <div class="item-desc">Куряче філе в паніровці, соус ранч.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Рол у лаваші</span><span class="price">169&#8202;₴</span></div>
-    <div class="item-desc">Курка або яловичина, овочі, соус.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Клаб-сендвіч</span><span class="price">189&#8202;₴</span></div>
-    <div class="item-desc">Курка, бекон, овочі, тости.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-5">
-  <div class="eyebrow">Ситніше</div>
-  <h2 class="section-title">Гаряче</h2>
-  <p class="section-sub">Коли прийшли не перекусити, а поїсти.</p>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Реберця BBQ <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">329&#8202;₴</span></div>
-    <div class="item-desc">Томлені, у липкій глазурі.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Курячий шашличок</span><span class="price">239&#8202;₴</span></div>
-    <div class="item-desc">З овочами-гриль і соусом.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Куряче філе-гриль</span><span class="price">219&#8202;₴</span></div>
-    <div class="item-desc">З гарніром на вибір.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Ковбаски-гриль</span><span class="price">249&#8202;₴</span></div>
-    <div class="item-desc">Асорті, з картоплею і гірчицею.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-6">
-  <div class="eyebrow">З кухні</div>
-  <h2 class="section-title">Паста</h2>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Паста болоньєзе</span><span class="price">219&#8202;₴</span></div>
-    <div class="item-desc">Спагеті, м'ясне рагу в томаті, пармезан.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Паста карбонара</span><span class="price">229&#8202;₴</span></div>
-    <div class="item-desc">Спагеті, бекон, вершковий соус, пармезан.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-7">
-  <div class="eyebrow">Свіже</div>
-  <h2 class="section-title">Салати</h2>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Цезар з куркою</span><span class="price">199&#8202;₴</span></div>
-    <div class="item-desc">Класика, як треба.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Теплий салат з яловичиною</span><span class="price">229&#8202;₴</span></div>
-    <div class="item-desc">Мікс салату, яловичина, овочі.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Овочевий із сиром</span><span class="price">159&#8202;₴</span></div>
-    <div class="item-desc">Свіжі овочі і заправка.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-8">
-  <div class="eyebrow">Додатки</div>
-  <h2 class="section-title">Гарніри і соуси</h2>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Гарнір: Фрі</span><span class="price">89&#8202;₴</span></div>
-    <div class="item-desc">Хрустка картопля фрі.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Гарнір: Картопля по-селянськи</span><span class="price">99&#8202;₴</span></div>
-    <div class="item-desc">Часточки з паприкою і часником.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Гарнір: Овочі гриль</span><span class="price">119&#8202;₴</span></div>
-    <div class="item-desc">Асорті овочів на грилі.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Соус сирний</span><span class="price">35&#8202;₴</span></div>
-    <div class="item-desc">Теплий вершково-сирний соус.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Соус BBQ</span><span class="price">35&#8202;₴</span></div>
-    <div class="item-desc">Димно-солодкий соус барбекю.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Соус часниковий</span><span class="price">35&#8202;₴</span></div>
-    <div class="item-desc">Вершковий соус із часником.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Соус гострий</span><span class="price">35&#8202;₴</span></div>
-    <div class="item-desc">Фірмовий пекучий соус.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Соус ранч</span><span class="price">35&#8202;₴</span></div>
-    <div class="item-desc">Класичний ранч на травах.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Соус кисло-солодкий</span><span class="price">35&#8202;₴</span></div>
-    <div class="item-desc">Кисло-солодкий соус.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Соус сальса</span><span class="price">39&#8202;₴</span></div>
-    <div class="item-desc">Томатна сальса з перцем.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Топінг: Сир</span><span class="price">49&#8202;₴</span></div>
-    <div class="item-desc">Додатковий розплавлений сир.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Топінг: Бекон</span><span class="price">59&#8202;₴</span></div>
-    <div class="item-desc">Хрусткий бекон як доповнення.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Топінг: Халапеньйо</span><span class="price">39&#8202;₴</span></div>
-    <div class="item-desc">Маринований перець халапеньйо.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-9">
-  <div class="eyebrow">До чаю і кальяну</div>
-  <h2 class="section-title">Десерти</h2>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Фруктова тарілка <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">259&#8202;₴</span></div>
-    <div class="item-desc">Асорті свіжих фруктів на компанію.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Чізкейк</span><span class="price">149&#8202;₴</span></div>
-    <div class="item-desc">Класичний ніжний чізкейк.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Морозиво</span><span class="price">99&#8202;₴</span></div>
-    <div class="item-desc">Кульки пломбіру з топінгом.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-10">
-  <div class="eyebrow">Бар</div>
-  <h2 class="section-title">Напої</h2>
-  <p class="section-sub">Витяг — повну карту зберемо окремо.</p>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Домашній лимонад (глечик) <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">199&#8202;₴</span></div>
-    <div class="item-desc">Великий глечик домашнього лимонаду на компанію.</div>
-  </div>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Коктейль авторський «Inferno» <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">219&#8202;₴</span></div>
-    <div class="item-desc">Фірмові авторські коктейлі «Inferno».</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Домашній лимонад (келих)</span><span class="price">79&#8202;₴</span></div>
-    <div class="item-desc">Порційний келих домашнього лимонаду.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Чайник фруктового чаю</span><span class="price">169&#8202;₴</span></div>
-    <div class="item-desc">Великий чайник фруктового чаю на компанію.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Коктейль класичний</span><span class="price">189&#8202;₴</span></div>
-    <div class="item-desc">Класичні коктейлі бару.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Пиво</span><span class="price">89&#8202;₴</span></div>
-    <div class="item-desc">Розливне або пляшкове пиво.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Кава</span><span class="price">69&#8202;₴</span></div>
-    <div class="item-desc">Еспресо, американо або капучино.</div>
-  </div>
-</section>
-
-<section class="section" id="sec-11">
-  <div class="eyebrow">Бар · класика</div>
-  <h2 class="section-title">Коктейлі</h2>
-  <p class="section-sub">10 класичних коктейлів на будь-який смак.</p>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Негроні <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">220&#8202;₴</span></div>
-    <div class="item-desc">Джин, Кампарі і червоний вермут — гірко-цитрусова класика.</div>
-  </div>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Олд Фешн <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">240&#8202;₴</span></div>
-    <div class="item-desc">Бурбон, цукор і бітер — вічна класика на льоду.</div>
-  </div>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Віскі Сауер <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">230&#8202;₴</span></div>
-    <div class="item-desc">Віскі, лимон, цукор і білок — оксамитова піна.</div>
-  </div>
-  <div class="featured">
-    <div class="item-head"><span class="item-name">Еспресо Мартіні <svg class="flame" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2c1 4-2 5-3 8-1 2 0 4 2 4 2 0 3-2 2-4 3 2 5 5 5 8a7 7 0 1 1-14 0c0-5 6-7 8-16z" fill="#E8631F"/></svg></span><span class="price">250&#8202;₴</span></div>
-    <div class="item-desc">Горілка, кавовий лікер і еспресо — бадьорить.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Джин Гарден</span><span class="price">230&#8202;₴</span></div>
-    <div class="item-desc">Джин, огірок, лайм і м'ята — свіжий садовий.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Апероль Шприц</span><span class="price">210&#8202;₴</span></div>
-    <div class="item-desc">Апероль, просекко і содова — літня класика.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Мохіто</span><span class="price">210&#8202;₴</span></div>
-    <div class="item-desc">Ром, лайм, м'ята і содова — освіжає.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Маргарита</span><span class="price">230&#8202;₴</span></div>
-    <div class="item-desc">Текіла, апельсиновий лікер і лайм, сіль на ободку.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Космополітан</span><span class="price">220&#8202;₴</span></div>
-    <div class="item-desc">Горілка, лікер, журавлина і лайм.</div>
-  </div>
-  <div class="item">
-    <div class="item-head"><span class="item-name">Дайкірі</span><span class="price">200&#8202;₴</span></div>
-    <div class="item-desc">Ром, лайм і цукор — баланс класики.</div>
-  </div>
-</section>
+</details>
 
   <footer class="foot">
     <div class="note">Ціни в гривнях. Кальян та повна карта бару — за окремою картою.</div>
     <div class="meta">Inferno · 12:00<span>—</span>23:00 · 063 875 65 06</div>
   </footer>
 </div>
+<script>
+  // exclusive accordion: opening one group closes the others, and scrolls it into view
+  document.querySelectorAll('details.group').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        document.querySelectorAll('details.group').forEach(function(o){ if(o!==d) o.open=false; });
+        d.querySelector('summary').scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+</script>
 </body>
 </html>
